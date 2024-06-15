@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://xlbwo2qvigic"]
+
+[ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
+[ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skxec"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yli6p"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k31nw"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kq8kp"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpinj"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt0e5"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rf4sl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skxec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yli6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k31nw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kq8kp")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpinj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xt0e5")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 2.0
+}]
+
+[sub_resource type="Animation" id="Animation_hl2n8"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1), Vector2(1, 1), Vector2(1.05, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i0may"]
+_data = {
+"Idle": SubResource("Animation_hl2n8")
+}
+
+[node name="GreenSlime" type="Node2D"]
+script = ExtResource("1_ubwj8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.02846, 1)
+sprite_frames = SubResource("SpriteFrames_rf4sl")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.666046
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i0may")
+}
+autoplay = "Idle"
