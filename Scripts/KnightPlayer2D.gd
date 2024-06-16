@@ -3,8 +3,9 @@ extends CharacterBody2D
 # Variable Exports
 @export var Speed: float = 200
 @export var Accel: float = 15
+@export var WeaponSwinging: bool = false
+var PlayerControllerEnabled = false # Player movement enabled/disabled
 var DirectionToggle = false # Right = false, Left = true
-var DirectionLock = false # Lock the player direction during certain animations
 var l_hand_origin : Vector2 # Origin point of LHand
 var r_hand_origin : Vector2 # Origin point of RHand
 
@@ -20,7 +21,11 @@ func _ready():
 	l_hand_origin = l_hand.position
 	r_hand_origin = r_hand.position
 
-func _physics_process(delta):
+func _physics_process(_delta):
+	
+	#Player movement disabled
+	if !PlayerControllerEnabled:
+		return
 	
 	# Get the direction as a Vector2
 	var direction: Vector2 = Input.get_vector("PlayerMoveLeft", "PlayerMoveRight", "PlayerMoveUp", "PlayerMoveDown")
@@ -34,9 +39,6 @@ func _physics_process(delta):
 	velocity.x = move_toward(velocity.x, Speed * direction.x, Accel)
 	velocity.y = move_toward(velocity.y, Speed * direction.y, Accel)
 	
-	move_and_slide()
-	Handle_Weapon_Rotation()
-	
 	if Input.is_action_just_pressed("DebugTest"):
 		print("r_weapon_pivot snapped =" + str(abs(snapped(r_weapon_pivot.rotation_degrees,1))))
 	
@@ -46,30 +48,23 @@ func _physics_process(delta):
 		if DirectionToggle: DirectionString = "L"
 		else: DirectionString = "R"
 		animation_player.play("Club_Anim" + str(DirectionString))
-		DirectionLock = true
 	elif Input.is_action_just_pressed("PlayerBlock"):
 		l_hand.position = Vector2(0,l_hand.position.y)
 	elif Input.is_action_just_released("PlayerBlock"):
 		l_hand.position = l_hand_origin
-		if DirectionToggle: l_hand.position *= Vector2(-1,1)
+		if DirectionToggle: l_hand.position *= Vector2(-1,1) # Swap position if facing left
+	
+	move_and_slide()
+	Handle_Weapon_Rotation()
 
 func Flip_sprite_Direction(Direction):
 	# Mirror hand transforms across x axis
 	# Direction -> Right = false, Left = true
 	#print("l_hand position = " + str(l_hand.position) + " r_hand position = " + str(r_hand.position))
 	l_hand.position *= Vector2(-1,1) #Move x postion to other side of body transform
-	if Direction: #Left side
-		r_hand.rotation_degrees = 180 # Rotate
-	else: #Right side
-		r_hand.rotation_degrees = 0 # Set to default
-
 	l_hand.flip_h = Direction
 	r_hand.flip_h = Direction
 	anim_body.flip_h = Direction
-
-func _on_animation_player_animation_finished(anim_name):
-	#print(str(anim_name) + " finished")
-	DirectionLock = false
 
 func Handle_Weapon_Rotation():
 	var weapon_pivot_rotation = snapped(r_weapon_pivot.rotation_degrees,1)
@@ -83,13 +78,28 @@ func Handle_Weapon_Rotation():
 		#print("Subtracted 360 degrees")
 	
 	#  Flip the sprite based on pivot rotation
-	if !DirectionToggle and (weapon_pivot_abs > 90 and weapon_pivot_abs < 270): #Flip R->L
+	if !DirectionToggle and !WeaponSwinging and (weapon_pivot_abs > 90 and weapon_pivot_abs < 270): #Flip R->L
 		DirectionToggle = true
 		Flip_sprite_Direction(DirectionToggle)
 		#print("DirectionToggle Left")
-	elif DirectionToggle and (weapon_pivot_abs > 270 or weapon_pivot_abs < 90): #Flip L->R
+	elif DirectionToggle and !WeaponSwinging and (weapon_pivot_abs > 270 or weapon_pivot_abs < 90): #Flip L->R
 		DirectionToggle = false
 		Flip_sprite_Direction(DirectionToggle)
 		#print("DirectionToggled Right")
-	
-	r_weapon_pivot.look_at(get_global_mouse_position())
+		
+	if DirectionToggle and !WeaponSwinging and snapped(r_hand.rotation_degrees,1) != 180: #Left side
+		r_hand.rotation_degrees = 180 # Rotate
+		#print("Rotating Hand position 180")
+	elif !DirectionToggle and !WeaponSwinging and snapped(r_hand.rotation_degrees,1) != 0: #Right side
+		r_hand.rotation_degrees = 0 # Set to default
+		#print("Rotating Hand position to 0")
+		
+	# Ensure that pivot doesn't rotate behind back
+	if (!DirectionToggle and (weapon_pivot_abs <= 90 or weapon_pivot_abs >= 270)):
+		r_weapon_pivot.look_at(get_global_mouse_position())
+	elif (DirectionToggle and weapon_pivot_abs >= 90 and weapon_pivot_abs <= 270):
+		r_weapon_pivot.look_at(get_global_mouse_position())
+
+func PlayerMovement(value):
+	#print("Player Movement = " + str(value))
+	PlayerControllerEnabled = value

@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://dvxwkvoilvb0c"]
+[gd_scene load_steps=21 format=3 uid="uid://dvxwkvoilvb0c"]
 
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_st80e"]
 [ext_resource type="Texture2D" uid="uid://ctb61nufiqdwd" path="res://Assets/Environment/Green Woods/Assets/Props.png" id="2_48bpf"]
 [ext_resource type="Texture2D" uid="uid://daivkatgafwru" path="res://Assets/Environment/Dungeon Prison/Assets/Tiles.png" id="2_vtrbi"]
 [ext_resource type="Texture2D" uid="uid://l4ugvq6giy56" path="res://Assets/Environment/Green Woods/Assets/Tiles.png" id="4_ov1tw"]
@@ -8,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://bdlny4blmesbp" path="res://Assets/fonts/PixelOperator8.ttf" id="7_cbn0b"]
 [ext_resource type="PackedScene" uid="uid://b0e4vrq84uyv8" path="res://Scenes/KnightPlayer2DWHands.tscn" id="7_l44vk"]
 [ext_resource type="PackedScene" uid="uid://bjsjyhl0obfga" path="res://Scenes/BobTheBlob.tscn" id="8_yyhhy"]
+[ext_resource type="Script" path="res://Scripts/PlayerCamera.gd" id="9_ij1am"]
 [ext_resource type="PackedScene" uid="uid://xlbwo2qvigic" path="res://Scenes/green_slime.tscn" id="9_pq6s7"]
 [ext_resource type="PackedScene" uid="uid://cioxilerkl6hj" path="res://Scenes/saw_trap.tscn" id="10_0kysx"]
 
@@ -2169,6 +2171,7 @@ _data = {
 }
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_st80e")
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = 1
@@ -2217,9 +2220,10 @@ text = "Example Text"
 [node name="KnightPlayer2D" parent="." instance=ExtResource("7_l44vk")]
 z_index = 5
 
-[node name="Camera2D" type="Camera2D" parent="KnightPlayer2D"]
+[node name="PlayerCamera" type="Camera2D" parent="KnightPlayer2D"]
 zoom = Vector2(2.75, 2.75)
 position_smoothing_enabled = true
+script = ExtResource("9_ij1am")
 
 [node name="BobTheBlob" parent="." instance=ExtResource("8_yyhhy")]
 position = Vector2(-65, 227)
@@ -2233,4 +2237,5 @@ z_index = 5
 position = Vector2(-35, 225)
 
 [node name="SawTrap" parent="." instance=ExtResource("10_0kysx")]
-position = Vector2(-73, -9)
+z_index = 4
+position = Vector2(95, -29)
