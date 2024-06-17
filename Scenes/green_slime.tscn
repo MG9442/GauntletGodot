@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://xlbwo2qvigic"]
+[gd_scene load_steps=16 format=3 uid="uid://xlbwo2qvigic"]
 
 [ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
 [ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
+[ext_resource type="FontFile" uid="uid://bdlny4blmesbp" path="res://Assets/fonts/PixelOperator8.ttf" id="3_y1sui"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skxec"]
 atlas = ExtResource("2_kwug8")
@@ -58,6 +59,9 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8hvve"]
+radius = 11.0
+
 [sub_resource type="Animation" id="Animation_hl2n8"]
 resource_name = "Idle"
 length = 2.0
@@ -75,23 +79,88 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.05, 1), Vector2(1, 1), Vector2(1.05, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_i0may"]
-_data = {
-"Idle": SubResource("Animation_hl2n8")
+[sub_resource type="Animation" id="Animation_2kplj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
 }
 
-[node name="GreenSlime" type="Node2D"]
+[sub_resource type="Animation" id="Animation_iqai4"]
+resource_name = "SlideMove"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Move"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i0may"]
+_data = {
+"Idle": SubResource("Animation_hl2n8"),
+"RESET": SubResource("Animation_2kplj"),
+"SlideMove": SubResource("Animation_iqai4")
+}
+
+[node name="GreenSlime" type="CharacterBody2D"]
 script = ExtResource("1_ubwj8")
+MoveTowardsTarget = true
+DebugLabelVisible = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(1.02846, 1)
 sprite_frames = SubResource("SpriteFrames_rf4sl")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.666046
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+y_sort_enabled = true
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_8hvve")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_i0may")
 }
 autoplay = "Idle"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 100.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0.152941, 0, 1)
+debug_path_custom_point_size = 2.0
+debug_path_custom_line_width = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="DebugState" type="Label" parent="."]
+z_index = 6
+offset_left = -26.0
+offset_top = -33.0
+offset_right = 28.0
+offset_bottom = -14.0
+theme_override_fonts/font = ExtResource("3_y1sui")
+theme_override_font_sizes/font_size = 8
+text = "Debug 
+Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
