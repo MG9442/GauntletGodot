@@ -4,7 +4,7 @@ extends Node2D
 @onready var player_camera = $KnightPlayer2D/PlayerCamera
 @onready var green_slime = $GreenSlime
 @onready var target_a = $TargetA
-@onready var target_b = $TargetB
+@onready var target_b = $KnightPlayer2D/TargetPlayer
 
 var DebugMode = false
 @export var CameraSpeed: float = 200
@@ -24,6 +24,6 @@ func _process(_delta):
 		player_camera.ObjectMovement(DebugMode)
 	elif Input.is_action_just_pressed("DebugTargetSwap"):
 		if green_slime.Target == target_b:
-			green_slime.Target = target_a
+			green_slime.SwapTargets(target_a)
 		else:
-			green_slime.Target = target_b
+			green_slime.SwapTargets(target_b)

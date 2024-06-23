@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://l4ugvq6giy56" path="res://Assets/Environment/Green Woods/Assets/Tiles.png" id="4_ov1tw"]
 [ext_resource type="Texture2D" uid="uid://dursshu58sslt" path="res://Assets/Environment/Dungeon Prison/Assets/Props.png" id="5_h2yi2"]
 [ext_resource type="PackedScene" uid="uid://cgb2xgd7ayj5j" path="res://Scenes/floating_sword.tscn" id="6_pmn5f"]
-[ext_resource type="FontFile" uid="uid://bdlny4blmesbp" path="res://Assets/fonts/PixelOperator8.ttf" id="7_cbn0b"]
 [ext_resource type="PackedScene" uid="uid://b0e4vrq84uyv8" path="res://Scenes/KnightPlayer2DWHands.tscn" id="7_l44vk"]
 [ext_resource type="Script" path="res://Scripts/PlayerCamera.gd" id="9_ij1am"]
 [ext_resource type="PackedScene" uid="uid://xlbwo2qvigic" path="res://Scenes/green_slime.tscn" id="9_pq6s7"]
 [ext_resource type="PackedScene" uid="uid://cioxilerkl6hj" path="res://Scenes/saw_trap.tscn" id="10_0kysx"]
 [ext_resource type="PackedScene" uid="uid://qhf65mgw0kc6" path="res://Scenes/purple_slime.tscn" id="12_b1mt2"]
+[ext_resource type="PackedScene" uid="uid://bnj5jkm6qcggl" path="res://Scenes/target_debug.tscn" id="12_d1n4n"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r75tb"]
 vertices = PackedVector2Array(214, -38, 214, 6, 118, 6, -118, -38, 118, 70, 74, 70, 74, 6, -90, 6, -118, 262, -90, 186, 343, 262, 74, 186, 74, 106, 118, 106, 118, 186, 343, 186)
@@ -2492,15 +2492,19 @@ zoom = Vector2(2.75, 2.75)
 position_smoothing_enabled = true
 script = ExtResource("9_ij1am")
 
+[node name="TargetPlayer" parent="KnightPlayer2D" instance=ExtResource("12_d1n4n")]
+visible = false
+
 [node name="GreenSlime" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("9_pq6s7")]
 z_index = 5
 position = Vector2(42, 221)
 motion_mode = 1
 wall_min_slide_angle = 0.0
 Target = NodePath("../TargetA")
+DebugLabelVisible = true
 
 [node name="SawTrap" parent="." instance=ExtResource("10_0kysx")]
-z_index = 4
+z_index = 10
 position = Vector2(95, -29)
 
 [node name="PurpleSlime" parent="." instance=ExtResource("12_b1mt2")]
@@ -2508,36 +2512,5 @@ z_index = 5
 position = Vector2(64, 203)
 scale = Vector2(0.675, 0.675)
 
-[node name="TargetA" type="Marker2D" parent="."]
-z_index = 6
-position = Vector2(95, -32)
-gizmo_extents = 28.7
-
-[node name="Label2" type="Label" parent="TargetA"]
-z_index = 6
-offset_left = -27.0
-offset_top = -4.0
-offset_right = 26.0
-offset_bottom = 6.0
-theme_override_fonts/font = ExtResource("7_cbn0b")
-theme_override_font_sizes/font_size = 8
-text = "Target A"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TargetB" type="Marker2D" parent="."]
-z_index = 6
-position = Vector2(98, 115)
-gizmo_extents = 28.7
-
-[node name="Label2" type="Label" parent="TargetB"]
-z_index = 6
-offset_left = -27.0
-offset_top = -4.0
-offset_right = 26.0
-offset_bottom = 6.0
-theme_override_fonts/font = ExtResource("7_cbn0b")
-theme_override_font_sizes/font_size = 8
-text = "Target B"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="TargetA" parent="." instance=ExtResource("12_d1n4n")]
+position = Vector2(98, 124)

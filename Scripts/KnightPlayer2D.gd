@@ -21,7 +21,7 @@ func _ready():
 	l_hand_origin = l_hand.position
 	r_hand_origin = r_hand.position
 
-func _physics_process(_delta):
+func _physics_process(_delta): #Change to _process if character blurry
 	
 	#Player movement disabled
 	if !PlayerControllerEnabled:
