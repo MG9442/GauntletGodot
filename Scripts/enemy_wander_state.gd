@@ -1,6 +1,15 @@
 class_name EnemyWanderState
 extends State
 
+# Enemy Idle/Wander Script
+
+# Responsible for:
+# Idle timeout
+# Randomized wandering
+
+# Dependencies:
+# Enemy script
+
 @export var enemy: CharacterBody2D
 @export var animator_sprite: AnimatedSprite2D
 @export var animation_player: AnimationPlayer
@@ -10,6 +19,7 @@ extends State
 var move_direction : Vector2
 var wander_time : float
 
+# Randomize move position when Idle
 func randomize_wander():
 	# Randomize a local point, then convert to global
 	var random_target = Vector2(randi_range(-WanderDistance, WanderDistance), 
@@ -17,12 +27,7 @@ func randomize_wander():
 	print("random target = " + str(random_target))
 	random_target = enemy.position + random_target
 	print("random_target combined with local position = " + str(random_target))
-	
-	#enemy.SwapTargets(New_target)
-	
-	# Randomize direction normal vector, then time to wander for
-	#move_direction = Vector2(randf_range(-1,1), randf_range(-1,1))
-	#wander_time = randf_range(1,3)
+	#enemy.WanderPosition(random_target)
 	
 func _enter_state():
 	randomize_wander()
@@ -38,5 +43,4 @@ func Update(_delta : float):
 		#randomize_wander()
 
 func Physics_Update(_delta : float):
-	if enemy:
-		enemy.velocity = move_direction * move_speed
+	pass

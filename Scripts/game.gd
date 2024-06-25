@@ -23,7 +23,9 @@ func _process(_delta):
 		knight_player_2d.PlayerMovement(!DebugMode)
 		player_camera.ObjectMovement(DebugMode)
 	elif Input.is_action_just_pressed("DebugTargetSwap"):
-		if green_slime.Target == target_b:
+		if green_slime.TargetObject == target_b:
 			green_slime.SwapTargets(target_a)
 		else:
 			green_slime.SwapTargets(target_b)
+	elif Input.is_action_just_pressed("DebugTargetRemove"):
+		green_slime.TargetObject = null
