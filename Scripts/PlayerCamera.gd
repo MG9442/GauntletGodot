@@ -4,11 +4,27 @@ extends Camera2D
 @export var Speed: float = 200
 @export var ZoomXDefault: float = 2.75
 @export var ZoomYDefault: float = 2.75
-@export var ZoomSpeed: float = 20
+@export var ZoomSpeed: float = 10
+@export var max_zoom_in : float = 4.25
+@export var max_zoom_out : float = 1.75
 var MovementEnabled = false # Movement enabled/disabled
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("CameraZoomIn"):
+		var MovementDelta = delta * ZoomSpeed
+		#print("Camera Zoom in")
+		if zoom.x < max_zoom_in:
+			zoom += Vector2(MovementDelta,MovementDelta)
+		print("PlayerCamera(): Zoom level = " + str(zoom))
+	elif Input.is_action_just_pressed("CameraZoomOut"):
+		var MovementDelta = delta * ZoomSpeed
+		#print("Camera Zoom out")
+		if zoom.x > max_zoom_out:
+			zoom -= Vector2(MovementDelta,MovementDelta)
+		print("PlayerCamera(): Zoom level = " + str(zoom))
+	elif Input.is_action_just_pressed("CameraZoomReset"):
+		zoom = Vector2(ZoomXDefault,ZoomYDefault)
 	
 	#Movement disabled
 	if !MovementEnabled:
@@ -16,16 +32,8 @@ func _process(delta):
 	
 	# Get the direction as a Vector2
 	var direction: Vector2 = Input.get_vector("PlayerMoveLeft", "PlayerMoveRight", "PlayerMoveUp", "PlayerMoveDown")
-	var MovementDelta = delta * ZoomSpeed
 	position.x += (delta * Speed * direction.x)
 	position.y += (delta * Speed * direction.y)
-	
-	if Input.is_action_just_pressed("DebugCameraZoomIn"):
-		#print("Camera Zoom in")
-		zoom += Vector2(MovementDelta,MovementDelta)
-	elif Input.is_action_just_pressed("DebugCameraZoomOut"):
-		#print("Camera Zoom out")
-		zoom -= Vector2(MovementDelta,MovementDelta)
 
 func ObjectMovement(value):
 	#print("Camera Movement = " + str(value))

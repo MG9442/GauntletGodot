@@ -39,9 +39,6 @@ func _physics_process(_delta): #Change to _process if character blurry
 	velocity.x = move_toward(velocity.x, Speed * direction.x, Accel)
 	velocity.y = move_toward(velocity.y, Speed * direction.y, Accel)
 	
-	if Input.is_action_just_pressed("DebugTest"):
-		print("r_weapon_pivot snapped =" + str(abs(snapped(r_weapon_pivot.rotation_degrees,1))))
-	
 	#Player attack animation
 	if Input.is_action_just_pressed("PlayerAttack"):
 		var DirectionString #Concat with Animation name
