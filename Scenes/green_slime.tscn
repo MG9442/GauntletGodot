@@ -170,7 +170,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_00yvi"]
-radius = 169.007
+radius = 104.059
 
 [node name="GreenSlime" type="CharacterBody2D"]
 collision_mask = 3
@@ -196,13 +196,13 @@ autoplay = "Idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_j4n2i")
-initial_state = NodePath("EnemyPursueState")
+initial_state = NodePath("EnemyWanderState")
 
-[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "animator_sprite", "animation_player")]
+[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "animator_sprite", "idle_timer")]
 script = ExtResource("5_crywh")
 enemy = NodePath("../..")
 animator_sprite = NodePath("../../AnimatedSprite2D")
-animation_player = NodePath("../../AnimationPlayer")
+idle_timer = NodePath("../IdleTimer")
 
 [node name="EnemyPursueState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "navigation_agent_2d", "Nav_timer")]
 script = ExtResource("5_sjvtu")
@@ -212,6 +212,7 @@ Nav_timer = NodePath("../../Navigation/NavTimer")
 PursueDistance = 35
 
 [node name="IdleTimer" type="Timer" parent="StateMachine"]
+wait_time = 3.0
 one_shot = true
 
 [node name="Navigation" type="Marker2D" parent="."]
@@ -230,7 +231,7 @@ debug_path_custom_line_width = 2.0
 wait_time = 0.5
 
 [node name="RayCast2D" type="RayCast2D" parent="Navigation"]
-target_position = Vector2(169, 0)
+target_position = Vector2(103, 0)
 collision_mask = 3
 
 [node name="DebugState" type="Label" parent="Navigation"]
@@ -255,7 +256,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_00yvi")
 debug_color = Color(0.434758, 0.582457, 0.416256, 0.42)
 
-[connection signal="timeout" from="StateMachine/IdleTimer" to="StateMachine/EnemyPursueState" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="StateMachine/IdleTimer" to="StateMachine/EnemyWanderState" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="Navigation/NavTimer" to="StateMachine/EnemyPursueState" method="_on_nav_timer_timeout"]
 [connection signal="body_entered" from="Navigation/PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="Navigation/PlayerDetection" to="." method="_on_player_detection_body_exited"]

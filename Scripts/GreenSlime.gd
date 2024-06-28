@@ -36,7 +36,7 @@ func _physics_process(delta):
 	# Examine player in range and check LOS, set PlayerTarget
 	SetActiveTarget()
 	
-	if movement_target == null:
+	if movement_target == Vector2.ZERO:
 		return
 	
 	var direction = movement_target - global_position
@@ -53,7 +53,7 @@ func _physics_process(delta):
 		move_and_slide()
 
 # Determine if Target position is within a specific distance
-func Target_in_Range(TargetExamine : Vector2, PixelDistance : int) -> bool:
+func Target_in_Range(TargetExamine : Vector2, PixelDistance : float) -> bool:
 	# Examine distance that enemy is away from Target
 	var distance =  TargetExamine - global_position
 	#print("SlimeDistance.length() = " + str(distance.length()))

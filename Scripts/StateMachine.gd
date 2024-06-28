@@ -38,7 +38,10 @@ func on_child_transition(state, new_state_name : String):
 		print(str(name) + " Error, " + str(new_state_name) + " not found!")
 		return
 	
-	if current_state:
+	# Run exit state of previous state
+	if current_state: 
 		current_state._exit_state()
 	
-	new_state._enter_state()
+	# Run enter state of new state
+	new_state._enter_state() 
+	current_state = new_state
