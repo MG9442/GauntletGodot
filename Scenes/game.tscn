@@ -2495,14 +2495,13 @@ script = ExtResource("9_ij1am")
 [node name="TargetPlayer" parent="KnightPlayer2D" instance=ExtResource("12_d1n4n")]
 visible = false
 
-[node name="GreenSlime" parent="." instance=ExtResource("9_pq6s7")]
+[node name="GreenSlime" parent="." node_paths=PackedStringArray("DEBUG_TARGET") instance=ExtResource("9_pq6s7")]
 z_index = 10
 position = Vector2(42, 221)
 collision_layer = 4
 collision_mask = 1
-motion_mode = 1
-wall_min_slide_angle = 0.0
 DebugLabelVisible = true
+DEBUG_TARGET = NodePath("../TargetA")
 
 [node name="SawTrap" parent="." instance=ExtResource("10_0kysx")]
 z_index = 10
@@ -2514,4 +2513,6 @@ position = Vector2(64, 203)
 scale = Vector2(0.675, 0.675)
 
 [node name="TargetA" parent="." instance=ExtResource("12_d1n4n")]
+z_index = 25
 position = Vector2(98, 124)
+Show_label = false

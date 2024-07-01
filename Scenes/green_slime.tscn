@@ -1,19 +1,24 @@
-[gd_scene load_steps=20 format=3 uid="uid://xlbwo2qvigic"]
+[gd_scene load_steps=24 format=3 uid="uid://xlbwo2qvigic"]
 
 [ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
 [ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
+[ext_resource type="Script" path="res://Scenes/EnemyAnimationController.gd" id="2_yg4qh"]
 [ext_resource type="FontFile" uid="uid://bdlny4blmesbp" path="res://Assets/fonts/PixelOperator8.ttf" id="3_y1sui"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="4_j4n2i"]
 [ext_resource type="Script" path="res://Scripts/enemy_wander_state.gd" id="5_crywh"]
 [ext_resource type="Script" path="res://Scripts/enemy_Pursue.gd" id="5_sjvtu"]
+[ext_resource type="Script" path="res://Scripts/EnemyNavigation.gd" id="6_mhqhf"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_skxec"]
-atlas = ExtResource("2_kwug8")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_8hvve"]
+radius = 11.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yli6p"]
 atlas = ExtResource("2_kwug8")
 region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skxec"]
+atlas = ExtResource("2_kwug8")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k31nw"]
 atlas = ExtResource("2_kwug8")
@@ -33,6 +38,14 @@ region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rf4sl"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yli6p")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_skxec")
@@ -62,9 +75,6 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8hvve"]
-radius = 11.0
-
 [sub_resource type="Animation" id="Animation_hl2n8"]
 resource_name = "Idle"
 length = 2.0
@@ -72,7 +82,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -84,7 +94,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -116,7 +126,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -128,7 +138,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -140,7 +150,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/path = NodePath("AnimationController/AnimatedSprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -162,8 +172,66 @@ tracks/3/keys = {
 "values": [0.0, 75.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_bqvke"]
+resource_name = "Attack1_slow"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 1), Vector2(1.25, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack"]
+}
+
+[sub_resource type="Animation" id="Animation_3djra"]
+resource_name = "Attack2_fast"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 1), Vector2(1.25, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack"]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0may"]
 _data = {
+"Attack1_slow": SubResource("Animation_bqvke"),
+"Attack2_fast": SubResource("Animation_3djra"),
 "Idle": SubResource("Animation_hl2n8"),
 "RESET": SubResource("Animation_2kplj"),
 "SlideMove": SubResource("Animation_iqai4")
@@ -174,21 +242,28 @@ radius = 104.059
 
 [node name="GreenSlime" type="CharacterBody2D"]
 collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_ubwj8")
 acceleration = 35
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_rf4sl")
-animation = &"Idle"
-autoplay = "Idle"
-frame = 2
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_8hvve")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationController" type="Node2D" parent="."]
+script = ExtResource("2_yg4qh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimationController"]
+sprite_frames = SubResource("SpriteFrames_rf4sl")
+animation = &"Attack"
+autoplay = "Idle"
+frame_progress = 0.206233
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationController"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_i0may")
 }
@@ -198,25 +273,25 @@ autoplay = "Idle"
 script = ExtResource("4_j4n2i")
 initial_state = NodePath("EnemyWanderState")
 
-[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "animator_sprite", "idle_timer")]
+[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "idle_timer")]
 script = ExtResource("5_crywh")
 enemy = NodePath("../..")
-animator_sprite = NodePath("../../AnimatedSprite2D")
 idle_timer = NodePath("../IdleTimer")
 
-[node name="EnemyPursueState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "navigation_agent_2d", "Nav_timer")]
+[node name="EnemyPursueState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "navigation")]
 script = ExtResource("5_sjvtu")
 enemy = NodePath("../..")
-navigation_agent_2d = NodePath("../../Navigation/NavigationAgent2D")
-Nav_timer = NodePath("../../Navigation/NavTimer")
-PursueDistance = 35
+navigation = NodePath("../../Navigation")
 
 [node name="IdleTimer" type="Timer" parent="StateMachine"]
-wait_time = 3.0
 one_shot = true
 
-[node name="Navigation" type="Marker2D" parent="."]
+[node name="Navigation" type="Marker2D" parent="." node_paths=PackedStringArray("enemy", "navigation_agent_2d", "Nav_timer")]
 gizmo_extents = 0.0
+script = ExtResource("6_mhqhf")
+enemy = NodePath("..")
+navigation_agent_2d = NodePath("NavigationAgent2D")
+Nav_timer = NodePath("NavTimer")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
 avoidance_enabled = true
@@ -231,6 +306,7 @@ debug_path_custom_line_width = 2.0
 wait_time = 0.5
 
 [node name="RayCast2D" type="RayCast2D" parent="Navigation"]
+visible = false
 target_position = Vector2(103, 0)
 collision_mask = 3
 
@@ -249,6 +325,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayerDetection" type="Area2D" parent="Navigation"]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation/PlayerDetection"]
@@ -256,7 +333,8 @@ position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_00yvi")
 debug_color = Color(0.434758, 0.582457, 0.416256, 0.42)
 
+[connection signal="animation_finished" from="AnimationController/AnimationPlayer" to="AnimationController" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="StateMachine/IdleTimer" to="StateMachine/EnemyWanderState" method="_on_idle_timer_timeout"]
-[connection signal="timeout" from="Navigation/NavTimer" to="StateMachine/EnemyPursueState" method="_on_nav_timer_timeout"]
+[connection signal="timeout" from="Navigation/NavTimer" to="Navigation" method="_on_nav_timer_timeout"]
 [connection signal="body_entered" from="Navigation/PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="Navigation/PlayerDetection" to="." method="_on_player_detection_body_exited"]

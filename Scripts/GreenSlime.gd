@@ -3,24 +3,21 @@ class_name  GreenSlimeEnemy
 # Enemy Script
 
 # Responsible for:
-# Movement, speed, accel, target
-# Animation playing
 # Raycast, Line of Sight detection
-# Distance to a specific target
+# Vision area for player tracking
 
 @export var VariedSpeed : float = 0 # Varied Speed controlled by animator player
 @export var acceleration = 7
 @export var DebugLabelVisible : bool = false # Label to tell which state enemy is in
+@export var DEBUG_TARGET : Marker2D #Used to monitor target positions
 @onready var debug_state = $Navigation/DebugState
-@onready var animated_sprite_2d = $AnimatedSprite2D
-@onready var animation_player = $AnimationPlayer
-@onready var enemy_pursue_state = $StateMachine/EnemyPursueState
 @onready var ray_cast_2d = $Navigation/RayCast2D
+@onready var navigation = $Navigation
+@onready var animation_controller = $AnimationController
 
 var Player_in_range : Node2D # Player body entered Detection
 var PlayerTarget : Node2D # Player in Range & LOS
-var movement_target : Vector2 # Next Movement target
-var movement_disabled : bool
+var ScriptSpeedInfluence: float = 1 # Used to go faster or slower, 1 = 100% speed
 
 # Debug testing
 var TargetObject: Node2D # Used to track a player or object
@@ -29,39 +26,10 @@ var TargetObject: Node2D # Used to track a player or object
 func _ready():
 	if DebugLabelVisible : #Enable debug label if toggled
 		debug_state.visible = true
-	animation_player.play("Idle")
 	debug_state.text = "Idle"
 	
-func _physics_process(delta):
-	# Examine player in range and check LOS, set PlayerTarget
-	SetActiveTarget()
-	
-	if movement_target == Vector2.ZERO:
-		return
-	
-	var direction = movement_target - global_position
-	direction = direction.normalized()
-	
-	# Flip Sprite based on direction normal (negative = left, positive = right)
-	if direction.x < 0:
-		animated_sprite_2d.flip_h = true
-	else:
-		animated_sprite_2d.flip_h = false
-	if !movement_disabled: # Move towards unless disabled
-		velocity = velocity.lerp(direction * VariedSpeed, acceleration * delta)
-		animation_player.play("SlideMove")
-		move_and_slide()
-
-# Determine if Target position is within a specific distance
-func Target_in_Range(TargetExamine : Vector2, PixelDistance : float) -> bool:
-	# Examine distance that enemy is away from Target
-	var distance =  TargetExamine - global_position
-	#print("SlimeDistance.length() = " + str(distance.length()))
-	if distance.length() <= PixelDistance: 
-		#print("GreenSlime(): Target reached!")
-		return true
-	else:
-		return false
+func _physics_process(_delta):
+	SetActiveTarget() # Examine player in range and check LOS, set PlayerTarget
 	
 func CheckLOS(Target : Node2D) -> bool:
 	if Target: # If target is valid, set raycast position to Target
@@ -79,20 +47,32 @@ func SetActiveTarget():
 	# Check for player in detection & line of sight, set active target
 	if !PlayerTarget and Player_in_range and CheckLOS(Player_in_range):
 		PlayerTarget = Player_in_range
-		print("Player target set " + str(PlayerTarget))
+		#print("Player target set " + str(PlayerTarget))
 	#Line of sight lost, but player in range
 	elif PlayerTarget and Player_in_range and !CheckLOS(Player_in_range):
-		print("Player LOS lost " + str(PlayerTarget))
+		#print("Player LOS lost " + str(PlayerTarget))
 		PlayerTarget = null
 	# Player went out of vision range
 	elif PlayerTarget and !Player_in_range:
-		print("Player target out of range " + str(PlayerTarget))
+		#print("Player target out of range " + str(PlayerTarget))
 		PlayerTarget = null
 
+func Set_nav_desired_distance(New_distance : int):
+	# Set navigation range to desired distance
+	if navigation: navigation.navigation_agent_2d.target_desired_distance = New_distance
+
+# Assign player entering vision area
 func _on_player_detection_body_entered(body):
 	#print("Player found! Player = " + str(body))
 	Player_in_range = body
 
+# Unassign player leaving vision area
 func _on_player_detection_body_exited(_body):
 	#print("Player lost Player = " + str(_body))
 	Player_in_range = null
+
+func Play_Anim(anim_name : String):
+	animation_controller.Play_anim(anim_name)
+
+func Flip_anim_sprite(Direction : bool):
+	animation_controller.Flip_anim_sprite(Direction)
