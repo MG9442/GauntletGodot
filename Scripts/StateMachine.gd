@@ -12,7 +12,7 @@ func _ready():
 		if child is State:
 			states[child.name.to_lower()] = child
 			child.Transitioned.connect(on_child_transition)
-	print(str(name) + " dictionary of State names = " + str(states))
+	#print(str(name) + " dictionary of State names = " + str(states))
 	
 	# Setup initial state
 	if initial_state:

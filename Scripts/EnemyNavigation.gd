@@ -15,7 +15,7 @@ class_name  EnemyNavigation
 # Navigation Elements
 @export var navigation_agent_2d : NavigationAgent2D
 @export var Nav_timer : Timer
-var Target_Reached : bool # Navigation finished because target was reached
+var Target_Reached : bool = true # Navigation finished because target was reached
 
 var Nav_Target_position : Vector2 # Nav target
 
@@ -29,8 +29,7 @@ func _physics_process(_delta):
 		enemy.velocity = enemy.velocity.lerp(direction * enemy.VariedSpeed, enemy.acceleration * _delta)
 		enemy.Play_Anim("SlideMove")
 		enemy.move_and_slide()
-	
-	DebugLabelUpdate() # Update label to show navigation status
+		DebugLabelUpdate() # Update label to show navigation status
 
 # Used to start/stop Nav timer
 func Set_Nav_Timer():
@@ -41,10 +40,18 @@ func Set_Nav_Timer():
 		Nav_timer.stop()
 
 func Set_Static_Target(static_target : Vector2):
-	print("Navigation static target set")
+	#print("Navigation static target set")
 	navigation_agent_2d.target_position = static_target
 	if enemy.DEBUG_TARGET:
 		enemy.DEBUG_TARGET.global_position = static_target
+
+func Set_Wander_Target(wander_target : Vector2):
+	#print("Navigation wander target set")
+	navigation_agent_2d.target_position = wander_target
+	Target_Reached = false
+	Nav_timer.start()
+	if enemy.DEBUG_TARGET:
+		enemy.DEBUG_TARGET.global_position = wander_target
 
 func Direction_to_Target() -> Vector2:
 	# Normalize distance to get direction
@@ -53,7 +60,6 @@ func Direction_to_Target() -> Vector2:
 	# Flip Sprite based on direction normal (negative = left, positive = right)
 	if direction.x < 0: enemy.Flip_anim_sprite(true)
 	else: enemy.Flip_anim_sprite(false)
-	
 	
 	return direction
 
@@ -74,7 +80,7 @@ func DebugLabelUpdate():
 	if enemy.DebugLabelVisible:
 		navigation_agent_2d.debug_enabled = true
 		if enemy.PlayerTarget: enemy.debug_state.text = "Pursuing Target LOS = true"
-		else: enemy.debug_state.text = "Pursuing Target LOS = false"
+		else: enemy.debug_state.text = "Wandering to target LOS = false"
 
 func Check_nav_target():
 	var position_distance = navigation_agent_2d.target_position - global_position

@@ -27,11 +27,11 @@ var Attack_timer: float
 var isAttacking : bool = false
 
 func _enter_state():
-	print("Entering Enemy Pursue State")
+	enemy.DebugPrintout("Entering Enemy Pursue State")
 	Search_timer = Search_timeout
 
 func _exit_state():
-	print("Exiting Enemy Pursue State")
+	enemy.DebugPrintout("Exiting Enemy Pursue State")
 
 func Physics_Update(_delta):
 	#print("navigation.Target_Reached = " + str(navigation.Target_Reached))
@@ -48,5 +48,5 @@ func Physics_Update(_delta):
 		enemy.Play_Anim("Idle")
 		Search_timer -= _delta
 		if Search_timer <= 0:
-			print("enemy_pursue Search timed out")
+			enemy.DebugPrintout("enemy_pursue Search timed out")
 			Transitioned.emit(self, "EnemyWanderState") # Transition to wander state

@@ -72,7 +72,13 @@ func _on_player_detection_body_exited(_body):
 	Player_in_range = null
 
 func Play_Anim(anim_name : String):
-	animation_controller.Play_anim(anim_name)
+	if animation_controller:
+		animation_controller.Play_anim(anim_name)
 
 func Flip_anim_sprite(Direction : bool):
-	animation_controller.Flip_anim_sprite(Direction)
+	if animation_controller:
+		animation_controller.Flip_anim_sprite(Direction)
+
+func DebugPrintout(text : String):
+	if DebugLabelVisible:
+		print(text)

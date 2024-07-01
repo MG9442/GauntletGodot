@@ -2498,16 +2498,59 @@ visible = false
 [node name="GreenSlime" parent="." node_paths=PackedStringArray("DEBUG_TARGET") instance=ExtResource("9_pq6s7")]
 z_index = 10
 position = Vector2(42, 221)
-collision_layer = 4
-collision_mask = 1
 DebugLabelVisible = true
 DEBUG_TARGET = NodePath("../TargetA")
+
+[node name="GreenSlime2" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(77, 232)
+
+[node name="GreenSlime3" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(93, 200)
+
+[node name="GreenSlime4" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(83, 120)
+
+[node name="GreenSlime5" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(102, 151)
+
+[node name="GreenSlime6" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(126, 198)
+
+[node name="GreenSlime7" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(116, 241)
+
+[node name="GreenSlime8" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(42, 254)
+
+[node name="GreenSlime9" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(10, 202)
+
+[node name="GreenSlime10" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(-4, 249)
+
+[node name="GreenSlime11" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(82, 175)
+
+[node name="GreenSlime12" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(56, 196)
 
 [node name="SawTrap" parent="." instance=ExtResource("10_0kysx")]
 z_index = 10
 position = Vector2(95, -29)
 
 [node name="PurpleSlime" parent="." instance=ExtResource("12_b1mt2")]
+visible = false
 z_index = 5
 position = Vector2(64, 203)
 scale = Vector2(0.675, 0.675)

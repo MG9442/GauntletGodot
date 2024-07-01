@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://xlbwo2qvigic"]
+[gd_scene load_steps=25 format=3 uid="uid://xlbwo2qvigic"]
 
 [ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
 [ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
@@ -75,9 +75,65 @@ animations = [{
 "speed": 2.0
 }]
 
+[sub_resource type="Animation" id="Animation_bqvke"]
+resource_name = "Attack1_slow"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 1), Vector2(1.25, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack"]
+}
+
+[sub_resource type="Animation" id="Animation_3djra"]
+resource_name = "Attack2_fast"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 1), Vector2(1.25, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack"]
+}
+
 [sub_resource type="Animation" id="Animation_hl2n8"]
 resource_name = "Idle"
-length = 2.0
+length = 1.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -86,10 +142,10 @@ tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.3, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.6, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1), Vector2(1, 1), Vector2(1.05, 1)]
+"values": [Vector2(1, 1), Vector2(1.05, 1), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -172,9 +228,10 @@ tracks/3/keys = {
 "values": [0.0, 75.0, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_bqvke"]
-resource_name = "Attack1_slow"
-length = 0.8
+[sub_resource type="Animation" id="Animation_mvivb"]
+resource_name = "Idle_2"
+length = 1.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -182,10 +239,10 @@ tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.9, 1), Vector2(1.25, 1), Vector2(1, 1)]
+"values": [Vector2(1, 1), Vector2(1, 1.1), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -197,35 +254,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"Attack"]
+"values": [&"Idle"]
 }
-
-[sub_resource type="Animation" id="Animation_3djra"]
-resource_name = "Attack2_fast"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationController/AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.9, 1), Vector2(1.25, 1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Attack"]
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0may"]
@@ -233,6 +274,7 @@ _data = {
 "Attack1_slow": SubResource("Animation_bqvke"),
 "Attack2_fast": SubResource("Animation_3djra"),
 "Idle": SubResource("Animation_hl2n8"),
+"Idle_2": SubResource("Animation_mvivb"),
 "RESET": SubResource("Animation_2kplj"),
 "SlideMove": SubResource("Animation_iqai4")
 }
@@ -241,7 +283,8 @@ _data = {
 radius = 104.059
 
 [node name="GreenSlime" type="CharacterBody2D"]
-collision_mask = 3
+collision_layer = 4
+collision_mask = 5
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ubwj8")
@@ -258,9 +301,8 @@ script = ExtResource("2_yg4qh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimationController"]
 sprite_frames = SubResource("SpriteFrames_rf4sl")
-animation = &"Attack"
+animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.206233
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationController"]
 root_node = NodePath("../..")
@@ -273,18 +315,19 @@ autoplay = "Idle"
 script = ExtResource("4_j4n2i")
 initial_state = NodePath("EnemyWanderState")
 
-[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "idle_timer")]
+[node name="EnemyWanderState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "navigation", "wander_timer")]
 script = ExtResource("5_crywh")
 enemy = NodePath("../..")
-idle_timer = NodePath("../IdleTimer")
+navigation = NodePath("../../Navigation")
+wander_timer = NodePath("WanderTimer")
+
+[node name="WanderTimer" type="Timer" parent="StateMachine/EnemyWanderState"]
+one_shot = true
 
 [node name="EnemyPursueState" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "navigation")]
 script = ExtResource("5_sjvtu")
 enemy = NodePath("../..")
 navigation = NodePath("../../Navigation")
-
-[node name="IdleTimer" type="Timer" parent="StateMachine"]
-one_shot = true
 
 [node name="Navigation" type="Marker2D" parent="." node_paths=PackedStringArray("enemy", "navigation_agent_2d", "Nav_timer")]
 gizmo_extents = 0.0
@@ -296,7 +339,6 @@ Nav_timer = NodePath("NavTimer")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Navigation"]
 avoidance_enabled = true
 radius = 100.0
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0.152941, 0, 1)
 debug_path_custom_point_size = 2.0
@@ -334,7 +376,7 @@ shape = SubResource("CircleShape2D_00yvi")
 debug_color = Color(0.434758, 0.582457, 0.416256, 0.42)
 
 [connection signal="animation_finished" from="AnimationController/AnimationPlayer" to="AnimationController" method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="StateMachine/IdleTimer" to="StateMachine/EnemyWanderState" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="StateMachine/EnemyWanderState/WanderTimer" to="StateMachine/EnemyWanderState" method="_on_wander_timer_timeout"]
 [connection signal="timeout" from="Navigation/NavTimer" to="Navigation" method="_on_nav_timer_timeout"]
 [connection signal="body_entered" from="Navigation/PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="Navigation/PlayerDetection" to="." method="_on_player_detection_body_exited"]
