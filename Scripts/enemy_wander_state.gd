@@ -12,6 +12,7 @@ extends State
 
 @export var enemy: GreenSlimeEnemy
 @export var navigation : EnemyNavigation
+@export var WanderTimeMax : int = 60 # Maximum randomized time to initiate wandering
 @export var WanderDistance : int = 100 # Distance from current location to wander
 @export var Wanderdesireddistance : int = 25 # Distance to consider target reached, avoids walls
 @export var wander_timer: Timer
@@ -44,7 +45,7 @@ func randomize_wander():
 	enemy.Set_nav_desired_distance(Wanderdesireddistance) # Avoids running into walls
 
 func randomize_timer():
-	var randomtime = randf_range(3, 20)
+	var randomtime = randf_range(3, WanderTimeMax)
 	wander_timer.wait_time = randomtime
 	#print("randomize_wander(): randomtime assigned = " + str(randomtime))
 	wander_timer.start()

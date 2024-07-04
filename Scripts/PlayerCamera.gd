@@ -16,13 +16,13 @@ func _process(delta):
 		#print("Camera Zoom in")
 		if zoom.x < max_zoom_in:
 			zoom += Vector2(MovementDelta,MovementDelta)
-		print("PlayerCamera(): Zoom level = " + str(zoom))
+		#print("PlayerCamera(): Zoom level = " + str(zoom))
 	elif Input.is_action_just_pressed("CameraZoomOut"):
 		var MovementDelta = delta * ZoomSpeed
 		#print("Camera Zoom out")
 		if zoom.x > max_zoom_out:
 			zoom -= Vector2(MovementDelta,MovementDelta)
-		print("PlayerCamera(): Zoom level = " + str(zoom))
+		#print("PlayerCamera(): Zoom level = " + str(zoom))
 	elif Input.is_action_just_pressed("CameraZoomReset"):
 		zoom = Vector2(ZoomXDefault,ZoomYDefault)
 	

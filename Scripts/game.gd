@@ -14,7 +14,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("DebugCameraControl"):
-		print("Entered Debug Camera Mode")
 		DebugMode = !DebugMode
+		print("Debug Camera Mode = " + str(DebugMode))
 		knight_player_2d.PlayerMovement(!DebugMode)
 		player_camera.ObjectMovement(DebugMode)

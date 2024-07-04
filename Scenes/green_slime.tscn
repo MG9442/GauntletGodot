@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://xlbwo2qvigic"]
+[gd_scene load_steps=26 format=3 uid="uid://xlbwo2qvigic"]
 
 [ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
 [ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
+[ext_resource type="PackedScene" uid="uid://27b58ccbhwqm" path="res://Scenes/Slimehurtbox.tscn" id="2_s87rm"]
 [ext_resource type="Script" path="res://Scenes/EnemyAnimationController.gd" id="2_yg4qh"]
 [ext_resource type="FontFile" uid="uid://bdlny4blmesbp" path="res://Assets/fonts/PixelOperator8.ttf" id="3_y1sui"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="4_j4n2i"]
@@ -10,7 +11,6 @@
 [ext_resource type="Script" path="res://Scripts/EnemyNavigation.gd" id="6_mhqhf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8hvve"]
-radius = 11.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yli6p"]
 atlas = ExtResource("2_kwug8")
@@ -160,6 +160,47 @@ tracks/1/keys = {
 "values": [&"Idle"]
 }
 
+[sub_resource type="Animation" id="Animation_mvivb"]
+resource_name = "Idle_2"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationController/AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_2kplj"]
 length = 0.001
 tracks/0/type = "value"
@@ -228,47 +269,6 @@ tracks/3/keys = {
 "values": [0.0, 75.0, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_mvivb"]
-resource_name = "Idle_2"
-length = 1.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationController/AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1.1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationController/AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimationController/AnimatedSprite2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0may"]
 _data = {
 "Attack1_slow": SubResource("Animation_bqvke"),
@@ -290,11 +290,13 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_ubwj8")
 acceleration = 35
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 1)
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_8hvve")
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("2_s87rm")]
+enemy = NodePath("..")
 
 [node name="AnimationController" type="Node2D" parent="."]
 script = ExtResource("2_yg4qh")

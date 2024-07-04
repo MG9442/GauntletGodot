@@ -6,6 +6,8 @@ class_name  GreenSlimeEnemy
 # Raycast, Line of Sight detection
 # Vision area for player tracking
 
+#TODO: Add a timeout for heading to last known target location, in case of being stuck
+
 @export var VariedSpeed : float = 0 # Varied Speed controlled by animator player
 @export var acceleration = 7
 @export var DebugLabelVisible : bool = false # Label to tell which state enemy is in
@@ -82,3 +84,6 @@ func Flip_anim_sprite(Direction : bool):
 func DebugPrintout(text : String):
 	if DebugLabelVisible:
 		print(text)
+
+func Variable_speed() -> float:
+	return VariedSpeed
