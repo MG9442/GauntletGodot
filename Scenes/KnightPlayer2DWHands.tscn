@@ -1,11 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://b0e4vrq84uyv8"]
+[gd_scene load_steps=23 format=3 uid="uid://b0e4vrq84uyv8"]
 
 [ext_resource type="Script" path="res://Scripts/KnightPlayer2D.gd" id="1_idx4v"]
 [ext_resource type="Texture2D" uid="uid://b4mq34qcplh2d" path="res://Assets/Heroes/Knight/Idle/Idle-Sheet.png" id="2_wwlgr"]
 [ext_resource type="Texture2D" uid="uid://i8pxonjvj2vi" path="res://Assets/Heroes/Knight/Run/Run-Sheet.png" id="3_jw50e"]
 [ext_resource type="Texture2D" uid="uid://coinfb58t6jog" path="res://Assets/Weapons/Hands/Hands.png" id="4_0giev"]
-[ext_resource type="Texture2D" uid="uid://be3p2egk3n5gr" path="res://Assets/Weapons/Bone/Bone.png" id="5_i1nix"]
 [ext_resource type="Texture2D" uid="uid://cnlwpyphsxt60" path="res://Assets/Weapons/Wood/Wood.png" id="6_t3cw8"]
+[ext_resource type="PackedScene" uid="uid://diu1eqlygtpy7" path="res://Scenes/wood_hammer.tscn" id="7_nyukh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bm1sv"]
 atlas = ExtResource("2_wwlgr")
@@ -121,6 +121,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RWeaponPivot/RHand/Wood_Hammer/Hammer_Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_uxady"]
 resource_name = "Club_AnimR"
@@ -149,16 +161,69 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RWeaponPivot/RHand/Wood_Hammer/Hammer_Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_fpy7f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RWeaponPivot/RHand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:WeaponSwinging")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RWeaponPivot/RHand/Wood_Hammer/Hammer_Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_814aw"]
 _data = {
 "Club_AnimL": SubResource("Animation_7qmw5"),
-"Club_AnimR": SubResource("Animation_uxady")
+"Club_AnimR": SubResource("Animation_uxady"),
+"RESET": SubResource("Animation_fpy7f")
 }
 
 [node name="KnightPlayer2D" type="CharacterBody2D"]
 position = Vector2(1, 0)
 collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_idx4v")
 
 [node name="Anim_Body" type="AnimatedSprite2D" parent="."]
@@ -169,7 +234,7 @@ autoplay = "Idle"
 frame = 2
 frame_progress = 0.702416
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
 z_index = 4
 position = Vector2(-1, -15)
 shape = SubResource("CapsuleShape2D_ur7sk")
@@ -187,7 +252,6 @@ region_enabled = true
 region_rect = Rect2(129, 0, 14, 16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_814aw")
 }
@@ -197,17 +261,18 @@ position = Vector2(0, -14)
 
 [node name="RHand" type="Sprite2D" parent="RWeaponPivot"]
 z_index = 1
+y_sort_enabled = true
 position = Vector2(14, 0)
 texture = ExtResource("4_0giev")
 region_enabled = true
 region_rect = Rect2(21, 21, 7, 6)
 
-[node name="RWeaponSlot" type="Sprite2D" parent="RWeaponPivot/RHand"]
-z_index = -1
-position = Vector2(1, -6)
-texture = ExtResource("5_i1nix")
-region_enabled = true
-region_rect = Rect2(17, 17, 14, 31)
+[node name="Wood_Hammer" parent="RWeaponPivot/RHand" instance=ExtResource("7_nyukh")]
+
+[node name="CollisionShape2D" parent="RWeaponPivot/RHand/Wood_Hammer/Hammer_Hitbox" index="0"]
+disabled = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+
+[editable path="RWeaponPivot/RHand/Wood_Hammer"]

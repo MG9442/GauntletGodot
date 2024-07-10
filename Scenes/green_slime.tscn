@@ -296,6 +296,7 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_8hvve")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("2_s87rm")]
+collision_mask = 36
 enemy = NodePath("..")
 
 [node name="AnimationController" type="Node2D" parent="."]
@@ -370,6 +371,7 @@ vertical_alignment = 1
 
 [node name="PlayerDetection" type="Area2D" parent="Navigation"]
 visible = false
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation/PlayerDetection"]
@@ -377,6 +379,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("CircleShape2D_00yvi")
 debug_color = Color(0.434758, 0.582457, 0.416256, 0.42)
 
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="animation_finished" from="AnimationController/AnimationPlayer" to="AnimationController" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="StateMachine/EnemyWanderState/WanderTimer" to="StateMachine/EnemyWanderState" method="_on_wander_timer_timeout"]
 [connection signal="timeout" from="Navigation/NavTimer" to="Navigation" method="_on_nav_timer_timeout"]

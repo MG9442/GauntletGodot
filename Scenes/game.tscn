@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dvxwkvoilvb0c"]
+[gd_scene load_steps=54 format=3 uid="uid://dvxwkvoilvb0c"]
 
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_st80e"]
 [ext_resource type="Texture2D" uid="uid://ctb61nufiqdwd" path="res://Assets/Environment/Green Woods/Assets/Props.png" id="2_48bpf"]
@@ -3763,44 +3763,6 @@ sources/0 = SubResource("TileSetAtlasSource_yw1pe")
 sources/2 = SubResource("TileSetAtlasSource_6qfpb")
 sources/4 = SubResource("TileSetAtlasSource_etnk7")
 
-[sub_resource type="Animation" id="Animation_ka7e7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(218, 214)]
-}
-
-[sub_resource type="Animation" id="Animation_ni1er"]
-resource_name = "move"
-length = 2.8
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1.1, 1.7, 2.2, 2.8),
-"transitions": PackedFloat32Array(2.63901, 0.68302, 1.23114, 2.92817, 0.784584, 1.36604),
-"update": 0,
-"values": [Vector2(218, 214), Vector2(184, 200), Vector2(157, 219), Vector2(171, 254), Vector2(203, 240), Vector2(219, 227)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5sg5j"]
-_data = {
-"RESET": SubResource("Animation_ka7e7"),
-"move": SubResource("Animation_ni1er")
-}
-
 [node name="Game" type="Node2D"]
 script = ExtResource("1_st80e")
 
@@ -3832,19 +3794,12 @@ layer_5/tile_data = PackedInt32Array(589833, 4, 12, 655369, 4, 13, 589826, 4, 12
 
 [node name="FloatingSword" parent="." instance=ExtResource("6_pmn5f")]
 z_index = 10
-position = Vector2(218, 214)
+position = Vector2(162, -24)
 scale = Vector2(0.7, 0.5)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="FloatingSword"]
-libraries = {
-"": SubResource("AnimationLibrary_5sg5j")
-}
-autoplay = "move"
 
 [node name="KnightPlayer2D" parent="." instance=ExtResource("7_l44vk")]
 z_index = 5
-position = Vector2(93, 69)
-collision_mask = 5
+position = Vector2(96, 12)
 platform_floor_layers = 4294967291
 
 [node name="PlayerCamera" type="Camera2D" parent="KnightPlayer2D"]
@@ -3854,6 +3809,10 @@ script = ExtResource("9_ij1am")
 
 [node name="TargetPlayer" parent="KnightPlayer2D" instance=ExtResource("12_d1n4n")]
 visible = false
+
+[node name="GreenSlime8" parent="." instance=ExtResource("9_pq6s7")]
+z_index = 10
+position = Vector2(-110, 59)
 
 [node name="GreenSlime" parent="." node_paths=PackedStringArray("DEBUG_TARGET") instance=ExtResource("9_pq6s7")]
 z_index = 10
@@ -3880,10 +3839,6 @@ position = Vector2(32, 244)
 [node name="GreenSlime7" parent="." instance=ExtResource("9_pq6s7")]
 z_index = 10
 position = Vector2(80, 252)
-
-[node name="GreenSlime8" parent="." instance=ExtResource("9_pq6s7")]
-z_index = 10
-position = Vector2(85, 155)
 
 [node name="GreenSlime9" parent="." instance=ExtResource("9_pq6s7")]
 z_index = 10

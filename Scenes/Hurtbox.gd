@@ -14,7 +14,10 @@ extends Area2D
 @export var bumpVector : RayCast2D
 @export var bump_magnitude : int = 100
 
+var Weapon_damage_func : String = "deal_damage"
 var BodiesColliding : Array
+
+signal TakeDamage # emit when taking damage
 
 func _physics_process(delta):
 	if BodiesColliding.size() > 0:
@@ -59,3 +62,13 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	#print("remove_colliding_body(): body exited space = " + str(body))
 	BodiesColliding.erase(body)
+
+
+func _on_area_entered(area):
+	#print("SlimeHurtbox(): Enemy hit!")
+	if area.owner.has_method(Weapon_damage_func):
+		var damage = area.owner.deal_damage()
+		TakeDamage.emit(damage)
+		#print("SlimeHurtbox(): damage result = " + str(damage))
+	else:
+		print("SlimeHurtbox(): Error, area owner does not have func " + Weapon_damage_func)

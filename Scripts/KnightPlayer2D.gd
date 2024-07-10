@@ -9,12 +9,17 @@ var DirectionToggle = false # Right = false, Left = true
 var l_hand_origin : Vector2 # Origin point of LHand
 var r_hand_origin : Vector2 # Origin point of RHand
 
+# Temporary placeholder for Stats
+@export var Strength: int = 10
+
 # Variable References
 @onready var anim_body = $Anim_Body
 @onready var r_hand = $RWeaponPivot/RHand
 @onready var l_hand = $LHand
 @onready var animation_player = $AnimationPlayer
 @onready var r_weapon_pivot = $RWeaponPivot
+
+#TODO: Add Collision shape child to enable/disable in Animation player when switching weapons
 
 func _ready():
 	# Save original hand transform for reference later
@@ -100,3 +105,6 @@ func Handle_Weapon_Rotation():
 func PlayerMovement(value):
 	#print("Player Movement = " + str(value))
 	PlayerControllerEnabled = value
+
+func character_stats() -> int:
+	return Strength
