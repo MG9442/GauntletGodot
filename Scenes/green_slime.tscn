@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://xlbwo2qvigic"]
+[gd_scene load_steps=27 format=3 uid="uid://xlbwo2qvigic"]
 
 [ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
 [ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
 [ext_resource type="PackedScene" uid="uid://27b58ccbhwqm" path="res://Scenes/Slimehurtbox.tscn" id="2_s87rm"]
 [ext_resource type="Script" path="res://Scenes/EnemyAnimationController.gd" id="2_yg4qh"]
+[ext_resource type="PackedScene" uid="uid://couhbe4vxen1x" path="res://Scenes/healthbar.tscn" id="3_61j7c"]
 [ext_resource type="FontFile" uid="uid://bdlny4blmesbp" path="res://Assets/fonts/PixelOperator8.ttf" id="3_y1sui"]
 [ext_resource type="Script" path="res://Scripts/StateMachine.gd" id="4_j4n2i"]
 [ext_resource type="Script" path="res://Scripts/enemy_wander_state.gd" id="5_crywh"]
@@ -298,6 +299,12 @@ shape = SubResource("CircleShape2D_8hvve")
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("2_s87rm")]
 collision_mask = 36
 enemy = NodePath("..")
+
+[node name="Healthbar" parent="." instance=ExtResource("3_61j7c")]
+offset_left = -15.0
+offset_top = -16.0
+offset_right = 15.0
+offset_bottom = -12.0
 
 [node name="AnimationController" type="Node2D" parent="."]
 script = ExtResource("2_yg4qh")

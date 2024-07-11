@@ -17,6 +17,8 @@ class_name  GreenSlimeEnemy
 @onready var navigation = $Navigation
 @onready var animation_controller = $AnimationController
 @onready var hurtbox = $Hurtbox
+@onready var healthbar = $Healthbar
+
 
 var Player_in_range : Node2D # Player body entered Detection
 var PlayerTarget : Node2D # Player in Range & LOS
@@ -26,7 +28,7 @@ var ScriptSpeedInfluence: float = 1 # Used to go faster or slower, 1 = 100% spee
 var TargetObject: Node2D # Used to track a player or object
 
 # Temporary placeholder for Stats
-var Health : float = 50
+var Health : float = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,8 +36,8 @@ func _ready():
 		debug_state.visible = true
 	debug_state.text = "Idle"
 	
-	if hurtbox:
-		hurtbox.TakeDamage.connect(RecieveDmg)
+	hurtbox.TakeDamage.connect(RecieveDmg)
+	healthbar.init_health(Health)
 	
 func _physics_process(_delta):
 	SetActiveTarget() # Examine player in range and check LOS, set PlayerTarget
@@ -97,5 +99,6 @@ func Variable_speed() -> float:
 	
 func RecieveDmg(damage : int):
 	Health -= damage
+	healthbar.health = Health
 	if Health <= 0:
 		queue_free()
