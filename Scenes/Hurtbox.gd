@@ -14,10 +14,15 @@ extends Area2D
 @export var bumpVector : RayCast2D
 @export var bump_magnitude : int = 100
 
+@onready var GameManager # Used to handle debug events
 var Weapon_damage_func : String = "deal_damage"
 var BodiesColliding : Array
 
 signal TakeDamage # emit when taking damage
+
+func _ready():
+	# Add GameManager from group
+	GameManager = get_tree().get_first_node_in_group("GameManager")
 
 func _physics_process(delta):
 	if BodiesColliding.size() > 0:
@@ -72,3 +77,9 @@ func _on_area_entered(area):
 		#print("SlimeHurtbox(): damage result = " + str(damage))
 	else:
 		print("SlimeHurtbox(): Error, area owner does not have func " + Weapon_damage_func)
+
+
+func _on_input_event(viewport, event, shape_idx):
+	if GameManager.DebugMode and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		print("Object selected in DebugMode = " + str(owner))
+		

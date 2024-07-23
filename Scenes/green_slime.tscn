@@ -286,6 +286,7 @@ radius = 104.059
 [node name="GreenSlime" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 5
+input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ubwj8")
@@ -297,6 +298,7 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_8hvve")
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("2_s87rm")]
+collision_layer = 64
 collision_mask = 36
 enemy = NodePath("..")
 
@@ -311,7 +313,7 @@ script = ExtResource("2_yg4qh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimationController"]
 sprite_frames = SubResource("SpriteFrames_rf4sl")
-animation = &"Idle"
+animation = &"Attack"
 autoplay = "Idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationController"]

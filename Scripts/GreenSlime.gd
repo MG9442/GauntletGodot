@@ -19,7 +19,6 @@ class_name  GreenSlimeEnemy
 @onready var hurtbox = $Hurtbox
 @onready var healthbar = $Healthbar
 
-
 var Player_in_range : Node2D # Player body entered Detection
 var PlayerTarget : Node2D # Player in Range & LOS
 var ScriptSpeedInfluence: float = 1 # Used to go faster or slower, 1 = 100% speed

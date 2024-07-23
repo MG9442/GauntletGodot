@@ -1,6 +1,6 @@
-[gd_scene load_steps=54 format=3 uid="uid://dvxwkvoilvb0c"]
+[gd_scene load_steps=56 format=3 uid="uid://dvxwkvoilvb0c"]
 
-[ext_resource type="Script" path="res://Scripts/game.gd" id="1_st80e"]
+[ext_resource type="Script" path="res://Scenes/GameManager.gd" id="1_qy233"]
 [ext_resource type="Texture2D" uid="uid://ctb61nufiqdwd" path="res://Assets/Environment/Green Woods/Assets/Props.png" id="2_48bpf"]
 [ext_resource type="Texture2D" uid="uid://daivkatgafwru" path="res://Assets/Environment/Dungeon Prison/Assets/Tiles.png" id="2_vtrbi"]
 [ext_resource type="Texture2D" uid="uid://l4ugvq6giy56" path="res://Assets/Environment/Green Woods/Assets/Tiles.png" id="4_ov1tw"]
@@ -12,6 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://cioxilerkl6hj" path="res://Scenes/saw_trap.tscn" id="10_0kysx"]
 [ext_resource type="PackedScene" uid="uid://qhf65mgw0kc6" path="res://Scenes/purple_slime.tscn" id="12_b1mt2"]
 [ext_resource type="PackedScene" uid="uid://bnj5jkm6qcggl" path="res://Scenes/target_debug.tscn" id="12_d1n4n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_da66s"]
+
+[sub_resource type="GDScript" id="GDScript_n1dhf"]
+script/source = "extends CheckBox
+
+@onready var DebugMenu = $\"../..\"
+@onready var FreezeTime = $\".\"
+
+var freeze_time : bool = false # Used by characters & enemies to halt animations
+
+"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r75tb"]
 vertices = PackedVector2Array(214, -38, 214, 6, 118, 6, -118, -38, 118, 70, 74, 70, 74, 6, -90, 6, -118, 262, -90, 186, 343, 262, 74, 186, 74, 106, 118, 106, 118, 186, 343, 186)
@@ -3763,8 +3775,48 @@ sources/0 = SubResource("TileSetAtlasSource_yw1pe")
 sources/2 = SubResource("TileSetAtlasSource_6qfpb")
 sources/4 = SubResource("TileSetAtlasSource_etnk7")
 
-[node name="Game" type="Node2D"]
-script = ExtResource("1_st80e")
+[node name="World" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="." groups=["GameManager"]]
+script = ExtResource("1_qy233")
+
+[node name="DebugModeUI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="TitleLabel" type="Label" parent="DebugModeUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -167.0
+offset_right = 167.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "DEBUG MODE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugModeUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -286.0
+offset_top = 17.0
+offset_right = -90.0
+offset_bottom = 57.0
+grow_horizontal = 0
+
+[node name="DebugControls" type="Label" parent="DebugModeUI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Admin Controls:"
+
+[node name="FreezeTime" type="CheckBox" parent="DebugModeUI/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_da66s")
+text = "Freeze Time"
+flat = true
+script = SubResource("GDScript_n1dhf")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 z_index = 4
@@ -3803,6 +3855,7 @@ position = Vector2(96, 12)
 platform_floor_layers = 4294967291
 
 [node name="PlayerCamera" type="Camera2D" parent="KnightPlayer2D"]
+process_mode = 3
 zoom = Vector2(2.75, 2.75)
 position_smoothing_enabled = true
 script = ExtResource("9_ij1am")
@@ -3870,3 +3923,5 @@ scale = Vector2(0.675, 0.675)
 z_index = 25
 position = Vector2(98, 124)
 Show_label = false
+
+[connection signal="toggled" from="DebugModeUI/VBoxContainer/FreezeTime" to="GameManager" method="_on_freeze_time_toggled"]
