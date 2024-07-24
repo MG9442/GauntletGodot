@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://xlbwo2qvigic"]
+[gd_scene load_steps=28 format=3 uid="uid://xlbwo2qvigic"]
 
 [ext_resource type="Script" path="res://Scripts/GreenSlime.gd" id="1_ubwj8"]
+[ext_resource type="PackedScene" uid="uid://cc1l0ivp88rxn" path="res://Scenes/debug_node.tscn" id="2_51o3m"]
 [ext_resource type="Texture2D" uid="uid://cvgn463kgv7rq" path="res://Assets/Enemy/Slimes/GreenSlime.png" id="2_kwug8"]
 [ext_resource type="PackedScene" uid="uid://27b58ccbhwqm" path="res://Scenes/Slimehurtbox.tscn" id="2_s87rm"]
 [ext_resource type="Script" path="res://Scenes/EnemyAnimationController.gd" id="2_yg4qh"]
@@ -284,6 +285,7 @@ _data = {
 radius = 104.059
 
 [node name="GreenSlime" type="CharacterBody2D"]
+position = Vector2(25, -7)
 collision_layer = 4
 collision_mask = 5
 input_pickable = true
@@ -296,6 +298,9 @@ acceleration = 35
 y_sort_enabled = true
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_8hvve")
+
+[node name="DebugNode" parent="." instance=ExtResource("2_51o3m")]
+z_index = 20
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("2_s87rm")]
 collision_layer = 64

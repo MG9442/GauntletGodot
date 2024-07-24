@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://b0e4vrq84uyv8"]
+[gd_scene load_steps=24 format=3 uid="uid://b0e4vrq84uyv8"]
 
 [ext_resource type="Script" path="res://Scripts/KnightPlayer2D.gd" id="1_idx4v"]
+[ext_resource type="PackedScene" uid="uid://cc1l0ivp88rxn" path="res://Scenes/debug_node.tscn" id="2_cb10m"]
 [ext_resource type="Texture2D" uid="uid://b4mq34qcplh2d" path="res://Assets/Heroes/Knight/Idle/Idle-Sheet.png" id="2_wwlgr"]
 [ext_resource type="Texture2D" uid="uid://i8pxonjvj2vi" path="res://Assets/Heroes/Knight/Run/Run-Sheet.png" id="3_jw50e"]
 [ext_resource type="Texture2D" uid="uid://coinfb58t6jog" path="res://Assets/Weapons/Hands/Hands.png" id="4_0giev"]
@@ -225,6 +226,8 @@ position = Vector2(1, 0)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_idx4v")
+
+[node name="DebugNode" parent="." instance=ExtResource("2_cb10m")]
 
 [node name="Anim_Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)

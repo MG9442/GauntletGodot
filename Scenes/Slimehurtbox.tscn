@@ -6,7 +6,6 @@
 radius = 15.0
 
 [node name="Hurtbox" type="Area2D"]
-process_mode = 3
 collision_layer = 0
 collision_mask = 6
 script = ExtResource("1_3xmgq")
@@ -18,4 +17,3 @@ debug_color = Color(0.601667, 0.539631, 0.163612, 0.42)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="input_event" from="." to="." method="_on_input_event"]

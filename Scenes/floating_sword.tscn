@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgb2xgd7ayj5j"]
+[gd_scene load_steps=5 format=3 uid="uid://cgb2xgd7ayj5j"]
 
 [ext_resource type="Texture2D" uid="uid://be3p2egk3n5gr" path="res://Assets/Weapons/Bone/Bone.png" id="1_tvju3"]
+[ext_resource type="PackedScene" uid="uid://cc1l0ivp88rxn" path="res://Scenes/debug_node.tscn" id="1_yabfa"]
 [ext_resource type="Script" path="res://Scripts/TrapDmg.gd" id="2_nhfl7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kdus1"]
@@ -10,6 +11,8 @@ height = 40.0
 [node name="FloatingSword" type="AnimatableBody2D"]
 collision_layer = 0
 collision_mask = 0
+
+[node name="DebugNode" parent="." instance=ExtResource("1_yabfa")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tvju3")

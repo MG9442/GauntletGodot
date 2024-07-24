@@ -3778,6 +3778,7 @@ sources/4 = SubResource("TileSetAtlasSource_etnk7")
 [node name="World" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="." groups=["GameManager"]]
+process_mode = 3
 script = ExtResource("1_qy233")
 
 [node name="DebugModeUI" type="CanvasLayer" parent="."]
