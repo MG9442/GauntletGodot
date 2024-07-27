@@ -1,17 +1,17 @@
-[gd_scene load_steps=56 format=3 uid="uid://dvxwkvoilvb0c"]
+[gd_scene load_steps=62 format=3 uid="uid://dvxwkvoilvb0c"]
 
 [ext_resource type="Script" path="res://Scenes/GameManager.gd" id="1_qy233"]
 [ext_resource type="Texture2D" uid="uid://ctb61nufiqdwd" path="res://Assets/Environment/Green Woods/Assets/Props.png" id="2_48bpf"]
 [ext_resource type="Texture2D" uid="uid://daivkatgafwru" path="res://Assets/Environment/Dungeon Prison/Assets/Tiles.png" id="2_vtrbi"]
 [ext_resource type="Texture2D" uid="uid://l4ugvq6giy56" path="res://Assets/Environment/Green Woods/Assets/Tiles.png" id="4_ov1tw"]
 [ext_resource type="Texture2D" uid="uid://dursshu58sslt" path="res://Assets/Environment/Dungeon Prison/Assets/Props.png" id="5_h2yi2"]
-[ext_resource type="PackedScene" uid="uid://cgb2xgd7ayj5j" path="res://Scenes/floating_sword.tscn" id="6_pmn5f"]
 [ext_resource type="PackedScene" uid="uid://b0e4vrq84uyv8" path="res://Scenes/KnightPlayer2DWHands.tscn" id="7_l44vk"]
 [ext_resource type="Script" path="res://Scripts/PlayerCamera.gd" id="9_ij1am"]
 [ext_resource type="PackedScene" uid="uid://xlbwo2qvigic" path="res://Scenes/green_slime.tscn" id="9_pq6s7"]
 [ext_resource type="PackedScene" uid="uid://cioxilerkl6hj" path="res://Scenes/saw_trap.tscn" id="10_0kysx"]
 [ext_resource type="PackedScene" uid="uid://qhf65mgw0kc6" path="res://Scenes/purple_slime.tscn" id="12_b1mt2"]
 [ext_resource type="PackedScene" uid="uid://bnj5jkm6qcggl" path="res://Scenes/target_debug.tscn" id="12_d1n4n"]
+[ext_resource type="PackedScene" uid="uid://bvdci6sv2suvb" path="res://Scenes/Sword_trap.tscn" id="12_gm8vi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_da66s"]
 
@@ -24,6 +24,18 @@ script/source = "extends CheckBox
 var freeze_time : bool = false # Used by characters & enemies to halt animations
 
 "
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4sn38"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0j08k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a6ptc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icipg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8fwd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v30o2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r75tb"]
 vertices = PackedVector2Array(214, -38, 214, 6, 118, 6, -118, -38, 118, 70, 74, 70, 74, 6, -90, 6, -118, 262, -90, 186, 343, 262, 74, 186, 74, 106, 118, 106, 118, 186, 343, 186)
@@ -3797,7 +3809,7 @@ text = "DEBUG MODE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugModeUI"]
+[node name="AdminControlsContainer" type="VBoxContainer" parent="DebugModeUI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -3807,17 +3819,139 @@ offset_right = -90.0
 offset_bottom = 57.0
 grow_horizontal = 0
 
-[node name="DebugControls" type="Label" parent="DebugModeUI/VBoxContainer"]
+[node name="AdminControls" type="Label" parent="DebugModeUI/AdminControlsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Admin Controls:"
 
-[node name="FreezeTime" type="CheckBox" parent="DebugModeUI/VBoxContainer"]
+[node name="FreezeTime" type="CheckBox" parent="DebugModeUI/AdminControlsContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_da66s")
 text = "Freeze Time"
 flat = true
 script = SubResource("GDScript_n1dhf")
+
+[node name="PropertiesContainer" type="VBoxContainer" parent="DebugModeUI"]
+offset_left = 32.0
+offset_top = 27.0
+offset_right = 243.0
+offset_bottom = 62.0
+
+[node name="MainTitle" type="Label" parent="DebugModeUI/PropertiesContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Object Properties"
+
+[node name="NameProperty" type="HBoxContainer" parent="DebugModeUI/PropertiesContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="DebugModeUI/PropertiesContainer/NameProperty"]
+layout_mode = 2
+text = "Name"
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugModeUI/PropertiesContainer/NameProperty"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label1" type="Label" parent="DebugModeUI/PropertiesContainer/NameProperty"]
+layout_mode = 2
+text = "GreenSlime1"
+
+[node name="MarginContainer2" type="MarginContainer" parent="DebugModeUI/PropertiesContainer/NameProperty"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TransformProperty" type="HBoxContainer" parent="DebugModeUI/PropertiesContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="DebugModeUI/PropertiesContainer/TransformProperty"]
+layout_mode = 2
+text = "Transform"
+
+[node name="SpinBox1" type="SpinBox" parent="DebugModeUI/PropertiesContainer/TransformProperty"]
+layout_mode = 2
+min_value = -1e+10
+max_value = 1e+10
+rounded = true
+
+[node name="SpinBox2" type="SpinBox" parent="DebugModeUI/PropertiesContainer/TransformProperty"]
+layout_mode = 2
+min_value = -1e+10
+max_value = 1e+10
+rounded = true
+
+[node name="ScaleProperty" type="HBoxContainer" parent="DebugModeUI/PropertiesContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
+layout_mode = 2
+text = "Scale"
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4sn38")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0j08k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_a6ptc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_icipg")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h8fwd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v30o2")
+button_pressed = true
+alignment = 1
+clip_text = true
+vertical_icon_alignment = 0
+
+[node name="SpinBox1" type="SpinBox" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
+layout_mode = 2
+max_value = 1e+10
+step = 0.1
+rounded = true
+
+[node name="SpinBox2" type="SpinBox" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
+layout_mode = 2
+max_value = 1e+10
+step = 0.1
+rounded = true
+
+[node name="ZIndex" type="HBoxContainer" parent="DebugModeUI/PropertiesContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="DebugModeUI/PropertiesContainer/ZIndex"]
+layout_mode = 2
+text = "Z Index"
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugModeUI/PropertiesContainer/ZIndex"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox1" type="SpinBox" parent="DebugModeUI/PropertiesContainer/ZIndex"]
+layout_mode = 2
+min_value = -1e+10
+max_value = 1e+10
+rounded = true
+
+[node name="Health" type="HBoxContainer" parent="DebugModeUI/PropertiesContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="DebugModeUI/PropertiesContainer/Health"]
+layout_mode = 2
+text = "Health"
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugModeUI/PropertiesContainer/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox1" type="SpinBox" parent="DebugModeUI/PropertiesContainer/Health"]
+layout_mode = 2
+max_value = 1e+10
+rounded = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 z_index = 4
@@ -3845,12 +3979,7 @@ layer_5/name = "Z6AirObjects"
 layer_5/z_index = 6
 layer_5/tile_data = PackedInt32Array(589833, 4, 12, 655369, 4, 13, 589826, 4, 12, 655362, 4, 13, 655375, 262145, 7, 720911, 262145, 7, 786447, 262145, 7, 851983, 262145, 7, 917519, 262145, 7, 983055, 262145, 7, 524299, 393220, 2, 589835, 393220, 3, 655371, 393220, 4, 524301, 393220, 2, 589837, 393220, 3, 655373, 393220, 4, 983057, 65540, 11, 327684, 131073, 11, 327685, 131073, 11, 327686, 131073, 11, 327687, 131073, 11)
 
-[node name="FloatingSword" parent="." instance=ExtResource("6_pmn5f")]
-z_index = 10
-position = Vector2(162, -24)
-scale = Vector2(0.7, 0.5)
-
-[node name="KnightPlayer2D" parent="." instance=ExtResource("7_l44vk")]
+[node name="KnightPlayer2D" parent="." groups=["Player"] instance=ExtResource("7_l44vk")]
 z_index = 5
 position = Vector2(96, 12)
 platform_floor_layers = 4294967291
@@ -3925,4 +4054,7 @@ z_index = 25
 position = Vector2(98, 124)
 Show_label = false
 
-[connection signal="toggled" from="DebugModeUI/VBoxContainer/FreezeTime" to="GameManager" method="_on_freeze_time_toggled"]
+[node name="Sword Trap" parent="." instance=ExtResource("12_gm8vi")]
+position = Vector2(256, -13)
+
+[connection signal="toggled" from="DebugModeUI/AdminControlsContainer/FreezeTime" to="GameManager" method="_on_freeze_time_toggled"]

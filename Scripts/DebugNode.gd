@@ -14,10 +14,32 @@ func _on_input_event(viewport, event, shape_idx):
 
 func show_active(enable : bool):
 	marker.visible = enable
-	print("DebugNode(): show_active = " + str(enable))
+	#print("DebugNode(): show_active = " + str(enable))
+
+func examine_properties() -> Array:
+	var properties : Array
+	#print("DebugNode(): owner.name = " + str(owner.name))
+	properties.append("Name")
+	properties.append(owner.name)
+	#print("DebugNode(): owner.global_position = " + str(owner.global_position))
+	properties.append("Transform")
+	properties.append(owner.global_position)
+	#print("DebugNode(): owner.scale = " + str(owner.scale))
+	properties.append("Scale")
+	properties.append(owner.scale)
+	if owner.has_method("RecieveDmg"):
+		#print("DebugNode(): owner.Health = " + str(owner.Health))
+		properties.append("Health")
+		properties.append(owner.Health)
+	#print("DebugNode(): owner.z_index = " + str(owner.z_index))
+	properties.append("ZIndex")
+	properties.append(owner.z_index)
+	
+	return properties
 
 func move_owner(new_position : Vector2):
 	owner.global_position += new_position
+	#print("new_position = " + str(new_position))
 	#print("owner.global_position = " + str(owner.global_position))
 
 func delete_owner():

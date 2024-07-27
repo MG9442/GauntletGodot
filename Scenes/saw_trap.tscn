@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cioxilerkl6hj"]
+[gd_scene load_steps=10 format=3 uid="uid://cioxilerkl6hj"]
 
+[ext_resource type="PackedScene" uid="uid://cc1l0ivp88rxn" path="res://Scenes/debug_node.tscn" id="1_gdkhj"]
 [ext_resource type="Texture2D" uid="uid://dursshu58sslt" path="res://Assets/Environment/Dungeon Prison/Assets/Props.png" id="1_n27nn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rc4gi"]
@@ -94,6 +95,8 @@ _data = {
 }
 
 [node name="SawTrap" type="Node2D"]
+
+[node name="DebugNode" parent="." instance=ExtResource("1_gdkhj")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_n27nn")

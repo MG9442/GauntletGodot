@@ -228,6 +228,7 @@ collision_mask = 0
 script = ExtResource("1_idx4v")
 
 [node name="DebugNode" parent="." instance=ExtResource("2_cb10m")]
+position = Vector2(-1, -14)
 
 [node name="Anim_Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
@@ -272,10 +273,5 @@ region_rect = Rect2(21, 21, 7, 6)
 
 [node name="Wood_Hammer" parent="RWeaponPivot/RHand" instance=ExtResource("7_nyukh")]
 
-[node name="CollisionShape2D" parent="RWeaponPivot/RHand/Wood_Hammer/Hammer_Hitbox" index="0"]
-disabled = true
-
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
-
-[editable path="RWeaponPivot/RHand/Wood_Hammer"]

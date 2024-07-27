@@ -284,8 +284,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_00yvi"]
 radius = 104.059
 
-[node name="GreenSlime" type="CharacterBody2D"]
-position = Vector2(25, -7)
+[node name="GreenSlime" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 5
 input_pickable = true
