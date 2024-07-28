@@ -22,11 +22,11 @@ signal TakeDamage # emit when taking damage
 func _physics_process(delta):
 	if BodiesColliding.size() > 0:
 		#print("Bodies colliding = " + str(BodiesColliding))
-		if slowest_speed(): # Bump the slowest speed entity
-			var direction  = direction_to_bump()
-			set_raycast(direction)
-			enemy.velocity = (direction * 10 * bump_magnitude * delta)
-			enemy.move_and_slide()
+		#if slowest_speed(): # Bump the slowest speed entity
+		var direction  = direction_to_bump()
+		set_raycast(direction)
+		enemy.velocity = (direction * 10 * bump_magnitude * delta)
+		enemy.move_and_slide()
 
 func direction_to_bump() -> Vector2:
 	var direction_vector : Vector2 = Vector2.ZERO # Direction vector based on colliding bodies

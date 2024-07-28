@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/GameManager.gd" id="1_qy233"]
 [ext_resource type="Texture2D" uid="uid://ctb61nufiqdwd" path="res://Assets/Environment/Green Woods/Assets/Props.png" id="2_48bpf"]
 [ext_resource type="Texture2D" uid="uid://daivkatgafwru" path="res://Assets/Environment/Dungeon Prison/Assets/Tiles.png" id="2_vtrbi"]
+[ext_resource type="Script" path="res://Scripts/DebugModeUI.gd" id="2_ww2aj"]
 [ext_resource type="Texture2D" uid="uid://l4ugvq6giy56" path="res://Assets/Environment/Green Woods/Assets/Tiles.png" id="4_ov1tw"]
 [ext_resource type="Texture2D" uid="uid://dursshu58sslt" path="res://Assets/Environment/Dungeon Prison/Assets/Props.png" id="5_h2yi2"]
 [ext_resource type="PackedScene" uid="uid://b0e4vrq84uyv8" path="res://Scenes/KnightPlayer2DWHands.tscn" id="7_l44vk"]
@@ -14,16 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bvdci6sv2suvb" path="res://Scenes/Sword_trap.tscn" id="12_gm8vi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_da66s"]
-
-[sub_resource type="GDScript" id="GDScript_n1dhf"]
-script/source = "extends CheckBox
-
-@onready var DebugMenu = $\"../..\"
-@onready var FreezeTime = $\".\"
-
-var freeze_time : bool = false # Used by characters & enemies to halt animations
-
-"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4sn38"]
 
@@ -3793,8 +3784,9 @@ sources/4 = SubResource("TileSetAtlasSource_etnk7")
 process_mode = 3
 script = ExtResource("1_qy233")
 
-[node name="DebugModeUI" type="CanvasLayer" parent="."]
+[node name="DebugModeUI" type="CanvasLayer" parent="." groups=["DebugModeUI"]]
 process_mode = 3
+script = ExtResource("2_ww2aj")
 
 [node name="TitleLabel" type="Label" parent="DebugModeUI"]
 anchors_preset = 5
@@ -3829,7 +3821,6 @@ layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_da66s")
 text = "Freeze Time"
 flat = true
-script = SubResource("GDScript_n1dhf")
 
 [node name="PropertiesContainer" type="VBoxContainer" parent="DebugModeUI"]
 offset_left = 32.0
@@ -3902,6 +3893,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_icipg")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h8fwd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_v30o2")
 button_pressed = true
+action_mode = 0
 alignment = 1
 clip_text = true
 vertical_icon_alignment = 0
@@ -3910,13 +3902,11 @@ vertical_icon_alignment = 0
 layout_mode = 2
 max_value = 1e+10
 step = 0.1
-rounded = true
 
 [node name="SpinBox2" type="SpinBox" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
 layout_mode = 2
 max_value = 1e+10
 step = 0.1
-rounded = true
 
 [node name="ZIndex" type="HBoxContainer" parent="DebugModeUI/PropertiesContainer"]
 layout_mode = 2

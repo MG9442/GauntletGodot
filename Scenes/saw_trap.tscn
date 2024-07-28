@@ -96,8 +96,6 @@ _data = {
 
 [node name="SawTrap" type="Node2D"]
 
-[node name="DebugNode" parent="." instance=ExtResource("1_gdkhj")]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_n27nn")
 region_enabled = true
@@ -118,3 +116,5 @@ libraries = {
 "": SubResource("AnimationLibrary_spf6v")
 }
 autoplay = "BuzzLtoR"
+
+[node name="DebugNode" parent="." instance=ExtResource("1_gdkhj")]
