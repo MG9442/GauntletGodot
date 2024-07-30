@@ -36,6 +36,10 @@ func examine_properties() -> Array:
 	
 	return properties
 
+func scale_owner(new_scale : Vector2):
+	owner.scale = new_scale
+	#print("owner.scale = " + str(owner.scale))
+
 func move_owner(new_position : Vector2):
 	owner.global_position += new_position
 	#print("new_position = " + str(new_position))

@@ -4048,3 +4048,9 @@ Show_label = false
 position = Vector2(256, -13)
 
 [connection signal="toggled" from="DebugModeUI/AdminControlsContainer/FreezeTime" to="GameManager" method="_on_freeze_time_toggled"]
+[connection signal="value_changed" from="DebugModeUI/PropertiesContainer/TransformProperty/SpinBox1" to="DebugModeUI" method="_on_transform_x_value_changed"]
+[connection signal="value_changed" from="DebugModeUI/PropertiesContainer/TransformProperty/SpinBox2" to="DebugModeUI" method="_on_transform_y_value_changed"]
+[connection signal="value_changed" from="DebugModeUI/PropertiesContainer/ScaleProperty/SpinBox1" to="DebugModeUI" method="_on_scale_x_value_changed"]
+[connection signal="value_changed" from="DebugModeUI/PropertiesContainer/ScaleProperty/SpinBox2" to="DebugModeUI" method="_on_scale_y_value_changed"]
+[connection signal="value_changed" from="DebugModeUI/PropertiesContainer/ZIndex/SpinBox1" to="DebugModeUI" method="_on_z_value_value_changed"]
+[connection signal="value_changed" from="DebugModeUI/PropertiesContainer/Health/SpinBox1" to="DebugModeUI" method="_on_health_value_value_changed"]
