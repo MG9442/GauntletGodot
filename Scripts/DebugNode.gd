@@ -36,14 +36,29 @@ func examine_properties() -> Array:
 	
 	return properties
 
+func examine_health() -> float:
+	if owner.has_method("RecieveDmg"):
+		return owner.Health
+	return 0
+
+func examine_transform() -> Vector2:
+	return owner.global_position
+
 func scale_owner(new_scale : Vector2):
 	owner.scale = new_scale
 	#print("owner.scale = " + str(owner.scale))
+
+func z_index_owner(new_zindex : int):
+	owner.z_index = new_zindex
 
 func move_owner(new_position : Vector2):
 	owner.global_position += new_position
 	#print("new_position = " + str(new_position))
 	#print("owner.global_position = " + str(owner.global_position))
+
+func damage_owner(new_health : int):
+	if owner.has_method("RecieveDmg"):
+		owner.RecieveDmg(new_health)
 
 func delete_owner():
 	owner.queue_free()

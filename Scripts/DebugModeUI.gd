@@ -137,13 +137,22 @@ func _on_scale_y_value_changed(value):
 	scale_lock = false
 
 func _on_z_value_value_changed(value):
-	#print("Z index value = (" + str(value) + ")")
-	pass
-
+	if !selected_object:
+		return
+	selected_object.find_child("DebugNode").z_index_owner(value)
+	#print("Changing Z index to " + str(value))
 
 func _on_health_value_value_changed(value):
-	pass # Replace with function body.
-
+	if !selected_object:
+		return
+	var object_health : float = selected_object.find_child("DebugNode").examine_health()
+	var health_diff : float = object_health - value #Use the difference to find damage value
+	selected_object.find_child("DebugNode").damage_owner(health_diff)
+	if value <= 0: # Object was deleted, remove object selection
+		enable_properties(false)
+		selected_object = null
+	print("Object Health = " + str(object_health) + " value = " + str(value))
+	print("damage value = " + str(health_diff))
 
 func _on_transform_x_value_changed(value):
 	pass # Replace with function body.

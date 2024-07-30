@@ -3941,6 +3941,7 @@ size_flags_horizontal = 3
 [node name="SpinBox1" type="SpinBox" parent="DebugModeUI/PropertiesContainer/Health"]
 layout_mode = 2
 max_value = 1e+10
+step = 5.0
 rounded = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
