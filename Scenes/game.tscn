@@ -13,17 +13,17 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_da66s"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4sn38"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0j08k"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v30o2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a6ptc"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icipg"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8fwd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v30o2"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icipg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0j08k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4sn38"]
 
 [node name="World" type="Node2D"]
 
@@ -134,12 +134,12 @@ layout_mode = 2
 
 [node name="CheckButton" type="CheckButton" parent="DebugModeUI/PropertiesContainer/ScaleProperty"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_4sn38")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_0j08k")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_a6ptc")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_icipg")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h8fwd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_v30o2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_a6ptc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h8fwd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_icipg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0j08k")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4sn38")
 button_pressed = true
 action_mode = 0
 alignment = 1
